@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || record.try(:user) == user
+    user.admin? || record.try(:id) == user.id
   end
 
   def update?
