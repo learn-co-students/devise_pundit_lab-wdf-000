@@ -71,6 +71,11 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # ActionMailer Config
+
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
