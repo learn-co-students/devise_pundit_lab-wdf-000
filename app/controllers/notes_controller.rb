@@ -1,9 +1,9 @@
 class NotesController < ApplicationController
-  
+
   def new
-    
+
   end
-  
+
   def create
     note = Note.new(note_params)
     note.user = current_user
@@ -12,14 +12,16 @@ class NotesController < ApplicationController
   end
 
   def update
+    @note = Note.find(params[:id])
+    authorize @post
     @note.update(note_params)
-    redirect_to '/'    
+    redirect_to '/'
   end
-  
+
   def edit
     @note = Note.find(params[:id])
   end
-  
+
   def show
   end
 
