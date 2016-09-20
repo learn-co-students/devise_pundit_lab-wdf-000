@@ -1,0 +1,4 @@
+<% if policy(@user).show? %>
+    <%= @user.email %>
+    <%= @user.name %>
+  <% end %>

@@ -1,0 +1,4 @@
+<% if policy(@note).show? %>
+    <%= render partial: "note", locals: {note: @note}%>
+
+  <% end %>

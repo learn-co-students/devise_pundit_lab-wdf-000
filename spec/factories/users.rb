@@ -8,6 +8,20 @@ FactoryGirl.define do
     trait :admin do
       role 'admin'
     end
+    trait :moderator do
+      role 'moderator'
+    end
+    trait :viewer do
+      name "Couch Potato"
+      email "bored@mind.org"
+      password "remotecontrol"
+    end
+
+    factory :scribe do
+      name "Shakespear"
+      email "midnight@summer.org"
+      password "itsaplay"
+    end
 
   end
 end
