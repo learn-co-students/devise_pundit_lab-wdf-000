@@ -17,7 +17,7 @@ class NotePolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin?  || user.moderator? || record.try(:user) == user
+    user.admin?  || user.moderator? || record.try(:user) == user || record.viewers.include?(user)
   end
 
 

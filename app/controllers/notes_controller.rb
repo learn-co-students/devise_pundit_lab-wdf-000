@@ -5,14 +5,20 @@ class NotesController < ApplicationController
   end
 
   def create
-    note = Note.new(note_params)
-    note.user = current_user
-    note.save!
+    @note = Note.create(content: note_params[:content])
+    @note.user = current_user
+    @note.visible_to=note_params[:visible_to]
+    @note.readers << current_user
+    @note.save
     redirect_to '/'
   end
 
   def update
-    @note.update(note_params)
+    @note = Note.find(params[:id])
+    @note.update(content: note_params[:content])
+    @note.visible_to=note_params[:visible_to]
+    @note.readers << current_user  unless @note.readers.include?(current_user)
+    @note.save
     redirect_to '/'
   end
 
@@ -21,6 +27,11 @@ class NotesController < ApplicationController
   end
 
   def show
+    @note = Note.find(params[:id])
+    if authorize @note
+    else
+      redirect_to '/'
+    end
   end
 
   def index

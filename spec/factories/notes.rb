@@ -5,8 +5,7 @@ FactoryGirl.define do
 
     association :user, factory: :scribe
 
-
   end
 
-  
+
 end

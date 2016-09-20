@@ -7,6 +7,7 @@ describe NotePolicy do
 
   ##copied from UserPolicy
   let (:current_user) { FactoryGirl.build_stubbed :user }
+  let (:viewer) { FactoryGirl.build_stubbed :user, :viewer }
   let (:moderator) { FactoryGirl.build_stubbed :user, :moderator }
   let (:admin) { FactoryGirl.build_stubbed :user, :admin }
   let (:note) { FactoryGirl.build_stubbed :note }
@@ -55,6 +56,7 @@ describe NotePolicy do
 
 
   permissions :show? do
+
     it "allows admins and moderators to see every note" do
       expect(subject).to permit(moderator)
       expect(subject).to permit(admin)
@@ -62,36 +64,10 @@ describe NotePolicy do
     it "prevents other users from seeing notes they are not viewers of" do
       # expect(subject).not_to permit(current_user, other_user)
     end
-    it "allows users to see all notes they are viewers of or own" do
+    it "allows users to see all notes they own" do
+
       expect(subject).to permit(note.user, note)
     end
   end
-
-
-
-
-  #
-  # permissions :show? do
-  #   it "prevents other users from seeing your profile" do
-  #     expect(subject).not_to permit(current_user, other_user)
-  #   end
-  #   it "allows you to see your own profile" do
-  #     expect(subject).to permit(current_user, current_user)
-  #   end
-  #   it "allows an admin to see any profile" do
-  #     expect(subject).to permit(admin)
-  #   end
-  # end
-  #
-
-  #
-  # permissions :destroy? do
-  #   it "prevents deleting yourself" do
-  #     expect(subject).not_to permit(current_user, current_user)
-  #   end
-  #   it "allows an admin to delete any user" do
-  #     expect(subject).to permit(admin, other_user)
-  #   end
-  # end
 
 end
