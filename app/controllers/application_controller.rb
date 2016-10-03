@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   # This avoids displaying the error when authorization from Pundit fails
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def home
+    render 'welcome/home'
+  end
+
   def about
     render 'welcome/about'
   end
