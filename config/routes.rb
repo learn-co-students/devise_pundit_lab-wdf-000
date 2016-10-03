@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   root 'notes#index'
 
   resources :users
+
   resources :notes
 
+  get 'pages/about', to: 'application#about'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
