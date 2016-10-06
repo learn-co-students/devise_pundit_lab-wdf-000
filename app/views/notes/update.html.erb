@@ -1,2 +1,7 @@
 <h1>Notes#update</h1>
 <p>Find me in app/views/notes/update.html.erb</p>
+
+
+<% if policy(@post).update? %>
+  <%= link_to "Edit post", edit_post_path(@post) %>
+<% end %>

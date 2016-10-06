@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CancanLab</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-</head>
+  </head>
 <body>
-  
-<%= yield %>
 
-</body>
-</html>
+
+
+<header class="contrainer-fluid">
+
+      <div>
+         <nav class="navbar navbar-default">
+           <%= render 'layouts/navigation' %>
+         </nav>
+       </div>
+     </header>
+
+     <section class="container">
+       <%= render 'layouts/messages' %>
+
+       <%= yield %>
+     </section>
+
+   </body>
+ </html>
