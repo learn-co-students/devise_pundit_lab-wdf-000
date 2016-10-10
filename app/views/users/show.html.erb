@@ -1,0 +1,7 @@
+<h1>User</h1>
+<% if policy(@user).show? %>
+  <p><%= @user.email %></p>
+<% end %>
+  <% if @user.admin? %>
+    <%= link_to "Delete", user_path(current_user), method: :delete %>
+<% end %>
