@@ -9,11 +9,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin?
+    user.admin? || record.try(:id) == user.id
   end
 
   def destroy?
-    user.admin?
+    user.admin? && (record != user)
   end
 
 end
