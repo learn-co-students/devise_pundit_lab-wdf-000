@@ -3,7 +3,7 @@ describe NotePolicy do
 
   let (:current_user) { FactoryGirl.build_stubbed :user }
   let (:admin) { FactoryGirl.build_stubbed :user, :admin }
-  let (:moderator) {FactoryGirl.build_stubbed :moderator}
+  let (:moderator) {FactoryGirl.build_stubbed :user, :moderator}
   let (:note) {FactoryGirl.build_stubbed :note}
 
   permissions :index? do
@@ -23,12 +23,6 @@ describe NotePolicy do
     it "allows an admin or a moderator to see any note" do
       expect(subject).to permit(moderator)
       expect(subject).to permit(admin)
-    end
-  end
-
-  permissions :create? do
-    it "allows creating new notes" do
-      expect(subject).to permit(current_user)
     end
   end
 

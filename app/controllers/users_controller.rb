@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:welcome]
 
   def index
     @user = current_user
@@ -14,6 +14,10 @@ class UsersController < ApplicationController
       flash[:alert] = "Access denied."
       redirect_to root_path
     end
+  end
+
+  def welcome
+    
   end
 
   private
