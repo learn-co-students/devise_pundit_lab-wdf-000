@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  before_action :authenticate_user!
   
   def new
     
@@ -21,11 +22,14 @@ class NotesController < ApplicationController
   end
   
   def show
+    authorize current_user
   end
 
   def index
-    @notes = Note.none
-    if current_user
+    @user = current_user
+    if authorize @user
+      @notes = Note.all
+    else
       @notes = current_user.readable
     end
   end
