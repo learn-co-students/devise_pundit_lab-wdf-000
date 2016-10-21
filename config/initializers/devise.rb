@@ -4,9 +4,9 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
+  # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '7b76f58692154e565dd37e5722a60bc21de1c519fe14b81d0ae27598947ea4ba57dea388bb416b5345fa6feb58a187267c429b5312e577a03ce2fb2a214c7d9a'
+  # config.secret_key = 'd4186d0f5e3f90c008322b87795e96cb2816948d1a4239f5624d1f49a5ec4e856028442565085f0b82c39964fd9d4ab2446825527918362ed0751f0b68f92f18'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -16,6 +16,9 @@ Devise.setup do |config|
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
+
+  # Configure the parent class responsible to send e-mails.
+  # config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -87,70 +90,28 @@ Devise.setup do |config|
   # from the server. You can disable this option at your own risk.
   # config.clean_up_csrf_token_on_authentication = true
 
+  # When false, Devise will not attempt to reload routes on eager load.
+  # This can reduce the time taken to boot the app but if your application
+  # requires the Devise mappings to be loaded during boot time the application
+  # won't boot properly.
+  # config.reload_routes = true
+
   # ==> Configuration for :database_authenticatable
-  # For bcrypt, this is the cost for hashing the password and defaults to 10. If
-  # using other encryptors, it sets how many times you want the password re-encrypted.
+  # For bcrypt, this is the cost for hashing the password and defaults to 11. If
+  # using other algorithms, it sets how many times you want the password to be hashed.
   #
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments. Note that, for bcrypt (the default
-  # encryptor), the cost increases exponentially with the number of stretches (e.g.
+  # algorithm), the cost increases exponentially with the number of stretches (e.g.
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
-  config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.test? ? 1 : 11
 
-  # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'fad6c44fa17907c0534fa9ac481d8c6331edbdb9da2684edb3eabca21b8ef5d99ca6e6fdd85f601dd70e94210333b070592da019b26ce81971d10f57a03ae30e'
+  # Set up a pepper to generate the hashed password.
+  # config.pepper = 'd1c6ff73e7eca86042b507aa8763b06c3d4888f445750d145d1d01abbba2a643c30f9a0dc602fe459b0401bc7813f8ec77c76dfd1283ad77aa27454b137eaec0'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
-
-  # ==> Configuration for :invitable
-  # The period the generated invitation token is valid, after
-  # this period, the invited resource won't be able to accept the invitation.
-  # When invite_for is 0 (the default), the invitation won't expire.
-  # config.invite_for = 2.weeks
-
-  # Number of invitations users can send.
-  # - If invitation_limit is nil, there is no limit for invitations, users can
-  # send unlimited invitations, invitation_limit column is not used.
-  # - If invitation_limit is 0, users can't send invitations by default.
-  # - If invitation_limit n > 0, users can send n invitations.
-  # You can change invitation_limit column for some users so they can send more
-  # or less invitations, even with global invitation_limit = 0
-  # Default: nil
-  # config.invitation_limit = 5
-
-  # The key to be used to check existing users when sending an invitation
-  # and the regexp used to test it when validate_on_invite is not set.
-  # config.invite_key = {:email => /\A[^@]+@[^@]+\z/}
-  # config.invite_key = {:email => /\A[^@]+@[^@]+\z/, :username => nil}
-
-  # Flag that force a record to be valid before being actually invited
-  # Default: false
-  # config.validate_on_invite = true
-
-  # Resend invitation if user with invited status is invited again
-  # Default: true
-  # config.resend_invitation = false
-
-  # The class name of the inviting model. If this is nil,
-  # the #invited_by association is declared to be polymorphic.
-  # Default: nil
-  # config.invited_by_class_name = 'User'
-
-  # The foreign key to the inviting model (if invited_by_class_name is set)
-  # Default: :invited_by_id
-  # config.invited_by_foreign_key = :invited_by_id
-
-  # The column name used for counter_cache column. If this is nil,
-  # the #invited_by association is declared without counter_cache.
-  # Default: nil
-  # config.invited_by_counter_cache = :invitations_count
-
-  # Auto-login after the user accepts the invite. If this is false,
-  # the user will need to manually log in after accepting the invite.
-  # Default: false
-  # config.allow_insecure_sign_in_after_accept = true
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -193,12 +154,12 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 8..72
+  config.password_length = 6..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  # config.email_regexp = /\A[^@]+@[^@]+\z/
+  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -246,11 +207,11 @@ Devise.setup do |config|
   # config.sign_in_after_reset_password = true
 
   # ==> Configuration for :encryptable
-  # Allow you to use another encryption algorithm besides bcrypt (default). You can use
-  # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,
-  # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
-  # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
-  # REST_AUTH_SITE_KEY to pepper).
+  # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
+  # You can use :sha1, :sha512 or algorithms from others authentication tools as
+  # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
+  # for default behavior) and :restful_authentication_sha1 (then you should set
+  # stretches to 10, and copy REST_AUTH_SITE_KEY to pepper).
   #
   # Require the `devise-encryptable` gem when using anything other than bcrypt
   # config.encryptor = :sha512

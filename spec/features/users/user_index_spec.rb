@@ -19,6 +19,7 @@ feature 'User index page', :devise do
     user = FactoryGirl.create(:user, :admin)
     login_as(user, scope: :user)
     visit users_path
+    # byebug
     expect(page).to have_content user.email
   end
 
